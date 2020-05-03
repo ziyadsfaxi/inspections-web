@@ -69,8 +69,8 @@ export default {
   computed: {},
   async mounted () {
     const { calender } = this.$refs;
-
     await calender.focusDate(new Date());
+    this.updateList();
   },
   methods: {
     dayClicked (day) {
