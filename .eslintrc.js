@@ -14,7 +14,8 @@ module.exports = {
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    semi: ["error", "always"],
+    semi: "off",
+    "@typescript-eslint/semi": ["error"],
     quotes: ["warn", "double"],
     "comma-dangle": [
       "error",
@@ -26,16 +27,22 @@ module.exports = {
         functions: "always-multiline",
       },
     ],
-  },
-  overrides: [
-    {
-      files: [
-        "**/__tests__/*.{j,t}s?(x)",
-        "**/tests/unit/**/*.spec.{j,t}s?(x)",
-      ],
-      env: {
-        jest: true,
+    "@typescript-eslint/interface-name-prefix": [
+      "warn",
+      {
+        prefixWithI: "always",
       },
-    },
-  ],
+    ],
+  },
+  // overrides: [
+  //   {
+  //     files: [
+  //       "**/__tests__/*.{j,t}s?(x)",
+  //       "**/tests/unit/**/*.spec.{j,t}s?(x)",
+  //     ],
+  //     env: {
+  //       jest: true,
+  //     },
+  //   },
+  // ],
 };
