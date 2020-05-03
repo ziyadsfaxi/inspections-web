@@ -1,17 +1,25 @@
 <template>
   <div class="content">
-    <Calender
-      ref="calender"
-      is-expanded
-      :columns="$screens({ default: 1, lg: 2 })"
-      :available-dates="availableDates"
-      :attributes="calenderAttributes"
-      :selected-date="new Date()"
-      @dayclick="dayClicked"
-    >
+    <!-- start of notification -->
+    <!-- env of notification -->
+    <div class="calender-container">
+      <Calender
+        ref="calender"
+        is-expanded
+        :columns="$screens({ default: 1, lg: 2 })"
+        :available-dates="availableDates"
+        :attributes="calenderAttributes"
+        :selected-date="new Date()"
+        @dayclick="dayClicked"
       >
-    </Calender>
-    <table class="table table-bordered  table-hover">
+      </Calender>
+    </div>
+    <div v-if="!slots.length" class="card">
+      <div class="card-body">
+        Please select a valid date 👆 to show the available slots.
+      </div>
+    </div>
+    <table v-if="slots.length" class="table table-bordered  table-hover">
       <caption>
         List of available slots
       </caption>
@@ -23,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(slot, index) of slots" :key="index">
+        <tr v-for="(slot, index) of slots" :key="index" v-on:click="slotClicked(slot)">
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ new Date(slot.from).toDateString() }}</td>
           <td>{{ new Date(slot.from).toTimeString() }}</td>
@@ -36,6 +44,9 @@
 <script>
 import Calender from "v-calendar/lib/components/calendar.umd";
 import InspectionSlotsService from "../services/inspections.service";
+import Vue from "vue";
+
+const errorMessage = "Unexpected Error, please try again 🥺😭";
 
 export default {
   name: "InspectionSlotsList",
@@ -43,7 +54,7 @@ export default {
     // DatePicker,
     Calender,
   },
-  data () {
+  data() {
     return {
       calenderAttributes: [
         {
@@ -68,28 +79,41 @@ export default {
     };
   },
   computed: {},
-  async mounted () {
+  async mounted() {
     const { calender } = this.$refs;
     await calender.focusDate(new Date());
     this.updateList();
   },
   methods: {
-    dayClicked (day) {
+    dayClicked(day) {
       this.selectedDay = new Date(day.date);
       this.updateList();
     },
+    async slotClicked(slot) {
+      try {
+        await InspectionSlotsService.bookSlot(slot);
 
-    async updateList () {
-      const list = await InspectionSlotsService.getList(this.selectedDay);
-      console.log(list);
-      this.slots = list;
+        Vue.toasted.success("The slot is successfully booked ✅, we will be waiting for you 🥰");
+        this.updateList();
+      } catch (error) {
+        Vue.toasted.error(errorMessage);
+      }
+    },
+    async updateList() {
+      try {
+        const list = await InspectionSlotsService.getList(this.selectedDay);
+        this.slots = list;
+      } catch (error) {
+        // TODO: add proper error handeling.
+        Vue.toasted.error(errorMessage);
+      }
     },
   },
 };
 </script>
 
 <style>
-.table {
-  margin-top: 20px;
+.calender-container {
+  margin-bottom: 20px;
 }
 </style>
