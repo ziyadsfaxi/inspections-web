@@ -1,7 +1,7 @@
 import IInspectionSlot from "../models/InspectionSlot";
 
 class InspectionSlotsFactory {
-  public static async generate (
+  public static async generate(
     { day, notAvailableSlots }: { day: Date; notAvailableSlots: Array<IInspectionSlot> },
   ): Promise<Array<IInspectionSlot>> {
     const generated: Array<IInspectionSlot> = [];
@@ -23,7 +23,7 @@ class InspectionSlotsFactory {
     return generated;
   }
 
-  public static async canBook ({ time, notAvailableSlots }: { time: Date; notAvailableSlots: Array<IInspectionSlot> }): Promise<boolean> {
+  public static async canBook({ time, notAvailableSlots }: { time: Date; notAvailableSlots: Array<IInspectionSlot> }): Promise<boolean> {
     const currentDate = new Date();
     // check if time is in 30 mins format.
     const allowedMinutesInterval = [0, 30];

@@ -12,7 +12,7 @@ class InspectionSlotsService {
   /**
    * getList
    */
-  public static async getList (day: Date): Promise<Array<IInspectionSlot>> {
+  public static async getList(day: Date): Promise<Array<IInspectionSlot>> {
     const notAvailableSlots: Array<IInspectionSlot> = await this.getNotAvailableList(day);
 
     const result: Array<IInspectionSlot> = await InspectionSlotsFactory.generate({ day, notAvailableSlots });
@@ -23,7 +23,7 @@ class InspectionSlotsService {
   /**
    * getNotAvailableList
    */
-  public static async getNotAvailableList (day?: Date): Promise<Array<IInspectionSlot>> {
+  public static async getNotAvailableList(day?: Date): Promise<Array<IInspectionSlot>> {
     const options: AxiosRequestConfig = {
       headers: this.headers,
       params: { day },
@@ -34,6 +34,21 @@ class InspectionSlotsService {
     // TODO: add proper error handeling.
 
     return result.data.data as Array<IInspectionSlot>;
+  }
+
+  /**
+   * bookSlot
+   */
+  public static async bookSlot(slot: IInspectionSlot): Promise<boolean> {
+    const options: AxiosRequestConfig = {
+      headers: this.headers,
+    };
+
+    const result = await axios.post(this.apiUrl, slot, options);
+
+    console.log(result);
+
+    return true;
   }
 }
 
