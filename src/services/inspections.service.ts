@@ -31,7 +31,10 @@ class InspectionSlotsService {
     const url = `${this.apiUrl}/not-available`;
     const result = await axios.get(url, options);
 
-    // TODO: add proper error handeling.
+    if (result.data.code !== "0000") {
+      // TODO: add proper error handeling.
+      throw new Error();
+    }
 
     return result.data.data as Array<IInspectionSlot>;
   }
@@ -46,7 +49,10 @@ class InspectionSlotsService {
 
     const result = await axios.post(this.apiUrl, slot, options);
 
-    console.log(result);
+    if (result.data.code !== "0000") {
+      // TODO: add proper error handeling.
+      throw new Error();
+    }
 
     return true;
   }

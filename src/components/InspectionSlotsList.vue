@@ -42,6 +42,7 @@
 </template>
 
 <script>
+// TODO: seperate files.
 import Calender from "v-calendar/lib/components/calendar.umd";
 import InspectionSlotsService from "../services/inspections.service";
 import Vue from "vue";
