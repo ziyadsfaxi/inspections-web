@@ -4,4 +4,4 @@ export default interface IInspectionSlot {
   inspectorId?: string;
   createdAt?: Date;
   updatedAt?: Date;
-};;;;;;;;;;
+};
