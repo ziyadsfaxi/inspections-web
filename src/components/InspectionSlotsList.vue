@@ -61,6 +61,7 @@ export default {
       availableDates: {
         start: new Date(),
         span: 21,
+        weekdays: [2, 3, 4, 5, 6, 7],
       },
       selectedDay: new Date(),
       slots: [],
@@ -80,7 +81,7 @@ export default {
 
     async updateList () {
       const list = await InspectionSlotsService.getList(this.selectedDay);
-      console.log(list[0]);
+      console.log(list);
       this.slots = list;
     },
   },
