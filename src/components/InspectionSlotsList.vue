@@ -12,9 +12,9 @@
       >
     </Calender>
     <table class="table table-bordered  table-hover">
-      <!-- <caption>
+      <caption>
         List of available slots
-      </caption> -->
+      </caption>
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -23,32 +23,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
+        <tr v-for="(slot, index) of slots" :key="index">
+          <th scope="row">{{ index + 1 }}</th>
+          <td>{{ new Date(slot.from).toDateString() }}</td>
+          <td>{{ new Date(slot.from).toTimeString() }}</td>
         </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-end">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav>
   </div>
 </template>
 
@@ -99,7 +80,8 @@ export default {
 
     async updateList () {
       const list = await InspectionSlotsService.getList(this.selectedDay);
-      console.table(list);
+      console.log(list[0]);
+      this.slots = list;
     },
   },
 };
