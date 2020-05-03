@@ -3,11 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    "plugin:vue/essential",
-    "@vue/standard",
-    "@vue/typescript/recommended",
-  ],
+  extends: ["plugin:vue/essential", "@vue/standard", "@vue/typescript/recommended"],
   parserOptions: {
     ecmaVersion: 2020,
   },
@@ -31,6 +27,14 @@ module.exports = {
       "warn",
       {
         prefixWithI: "always",
+      },
+    ],
+    "space-before-function-paren": [
+      "warn",
+      {
+        anonymous: "always",
+        named: "never",
+        asyncArrow: "always",
       },
     ],
   },
