@@ -95,7 +95,7 @@ export default {
       try {
         this.$modal.show("dialog", {
           title: "Are you sure?",
-          text: `Do you want to book a slot on ${TimeHelper.parseDateToTime(slot.from)} ${new Date(slot.from).toDateString()}?`,
+          text: `Would you like to confirm your booking on ${TimeHelper.parseDateToTime(slot.from)} ${new Date(slot.from).toDateString()}?`,
           buttons: [
             {
               title: "Book ✅",
