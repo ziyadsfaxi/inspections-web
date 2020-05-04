@@ -4,7 +4,7 @@ import InspectionSlotsFactory from "../helpers/inspectionSlotsFactory.helper";
 
 class InspectionSlotsService {
   // TODO: make a config file and store the base api URL there.
-  private static apiUrl = "http://localhost:5000/api/inspection-slots";
+  private static apiUrl = "https://carsome-api.herokuapp.com/api/inspection-slots";
   private static headers = {
     "Content-Type": "application/json",
   };
