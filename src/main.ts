@@ -4,6 +4,7 @@ import "./registerServiceWorker";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Toasted from "vue-toasted";
+import VModal from "vue-js-modal";
 
 const toastOptions = {
   position: "bottom-right",
@@ -12,6 +13,7 @@ const toastOptions = {
 };
 
 Vue.use(Toasted, toastOptions);
+Vue.use(VModal, { dialog: true });
 
 Vue.config.productionTip = false;
 

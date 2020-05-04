@@ -4,6 +4,7 @@
     <div class="container">
       <InspectionSlotsList></InspectionSlotsList>
     </div>
+    <v-dialog />
   </div>
 </template>
 

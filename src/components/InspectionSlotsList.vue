@@ -45,6 +45,7 @@
 // TODO: seperate files.
 import Calender from "v-calendar/lib/components/calendar.umd";
 import InspectionSlotsService from "../services/inspections.service";
+import TimeHelper from "../helpers/time.helper";
 import Vue from "vue";
 
 const errorMessage = "Unexpected Error, please try again 🥺😭";
@@ -92,10 +93,25 @@ export default {
     },
     async slotClicked(slot) {
       try {
-        await InspectionSlotsService.bookSlot(slot);
-
-        Vue.toasted.success("The slot is successfully booked ✅, we will be waiting for you 🥰");
-        this.updateList();
+        this.$modal.show("dialog", {
+          title: "Are you sure?",
+          text: `Do you want to book a slot on ${TimeHelper.parseDateToTime(slot.from)} ${new Date(slot.from).toDateString()}?`,
+          buttons: [
+            {
+              title: "Book ✅",
+              handler: async () => {
+                await InspectionSlotsService.bookSlot(slot);
+                Vue.toasted.success("The slot is successfully booked ✅, we will be waiting for you 🥰");
+                this.updateList();
+                this.$modal.hide("dialog");
+              },
+            },
+            {
+              title: "Close",
+            },
+          ],
+        });
+        return;
       } catch (error) {
         Vue.toasted.error(errorMessage);
       }
