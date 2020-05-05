@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.288537fc331c764458c3b5979bbb14bf.js"
+  "/precache-manifest.bdc4c1bb70715396a4ab96c589e3dc98.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "carsome-web"});
