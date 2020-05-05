@@ -83,6 +83,7 @@ export default {
       },
       selectedDay: new Date(),
       slots: [],
+      // TODO: move loading state to the network layer.
       isLoading: false,
     };
   },

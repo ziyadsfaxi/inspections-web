@@ -14,13 +14,13 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5084f7a1c49011e5daeb4e8d40e83241.js",
+  "/precache-manifest.288537fc331c764458c3b5979bbb14bf.js"
 );
 
-workbox.core.setCacheNameDetails({ prefix: "carsome-web" });
+workbox.core.setCacheNameDetails({prefix: "carsome-web"});
 
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
