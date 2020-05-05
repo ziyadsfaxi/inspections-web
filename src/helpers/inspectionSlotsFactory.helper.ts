@@ -11,9 +11,9 @@ class InspectionSlotsFactory {
     console.log("init: ", date);
 
     for (let index = 0; index < 18; index++) {
-      console.log("canBook?", date);
 
       const canBook = await this.canBook({ time: date, notAvailableSlots });
+      console.log("canBook?", date, canBook);
       if (canBook) {
         generated.push(
           {
