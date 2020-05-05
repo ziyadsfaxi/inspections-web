@@ -38,12 +38,17 @@
         </tr>
       </tbody>
     </table>
+    <div v-if="isLoading">
+      <Circle10 id="loading-spinner"></Circle10>
+      <div id="overlay"></div>
+    </div>
   </div>
 </template>
 
 <script>
 // TODO: seperate files.
 import Calender from "v-calendar/lib/components/calendar.umd";
+import Circle10 from "vue-loading-spinner/src/components/Circle10.vue";
 import InspectionSlotsService from "../services/inspections.service";
 import TimeHelper from "../helpers/time.helper";
 import Vue from "vue";
@@ -53,7 +58,7 @@ const errorMessage = "Unexpected Error, please try again 🥺😭";
 export default {
   name: "InspectionSlotsList",
   components: {
-    // DatePicker,
+    Circle10,
     Calender,
   },
   data() {
@@ -78,6 +83,7 @@ export default {
       },
       selectedDay: new Date(),
       slots: [],
+      isLoading: false,
     };
   },
   computed: {},
@@ -118,11 +124,14 @@ export default {
     },
     async updateList() {
       try {
+        this.isLoading = true;
         const list = await InspectionSlotsService.getList(this.selectedDay);
         this.slots = list;
       } catch (error) {
         // TODO: add proper error handeling.
         Vue.toasted.error(errorMessage);
+      } finally {
+        this.isLoading = false;
       }
     },
   },
@@ -132,5 +141,26 @@ export default {
 <style>
 .calender-container {
   margin-bottom: 20px;
+}
+
+#loading-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: transformX(-50%);
+  margin-left: transformY(-50%);
+  z-index: 1001;
+}
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.7);
+  z-index: 2;
+  cursor: pointer;
 }
 </style>
