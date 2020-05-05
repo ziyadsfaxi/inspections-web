@@ -26,8 +26,9 @@ class InspectionSlotsService {
   public static async getNotAvailableList(day?: Date): Promise<Array<IInspectionSlot>> {
     const options: AxiosRequestConfig = {
       headers: this.headers,
-      params: { day: day!.toLocaleString("en-US", { timeZone: "Asia/Kuala_Lumpur" }) },
+      params: { day: new Date(day!).toISOString() },
     };
+
     const url = `${this.apiUrl}/not-available`;
     const result = await axios.get(url, options);
 
@@ -48,7 +49,7 @@ class InspectionSlotsService {
     };
 
     const body = {
-      from: slot.from.toLocaleString("en-US", { timeZone: "Asia/Kuala_Lumpur" }),
+      from: new Date(slot.from).toISOString(),
     };
 
     const result = await axios.post(this.apiUrl, body, options);
