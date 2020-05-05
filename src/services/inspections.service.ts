@@ -47,7 +47,11 @@ class InspectionSlotsService {
       headers: this.headers,
     };
 
-    const result = await axios.post(this.apiUrl, slot, options);
+    const body = {
+      from: slot.from.toLocaleString("en-US", { timeZone: "Asia/Kuala_Lumpur" }),
+    };
+
+    const result = await axios.post(this.apiUrl, body, options);
 
     if (result.data.code !== "0000") {
       // TODO: add proper error handeling.
