@@ -107,10 +107,18 @@ export default {
             {
               title: "Book ✅",
               handler: async () => {
-                await InspectionSlotsService.bookSlot(slot);
-                Vue.toasted.success("The slot is successfully booked ✅, we will be waiting for you 🥰");
-                this.updateList();
-                this.$modal.hide("dialog");
+                try {
+                  this.isLoading = true;
+                  this.$modal.hide("dialog");
+                  await InspectionSlotsService.bookSlot(slot);
+                  Vue.toasted.success("The slot is successfully booked ✅, we will be waiting for you 🥰");
+                  this.updateList();
+                } catch (error) {
+                  this.$modal.hide("dialog");
+                  Vue.toasted.error(errorMessage);
+                } finally {
+                  this.isLoading = false;
+                }
               },
             },
             {
