@@ -8,7 +8,11 @@ class InspectionSlotsFactory {
 
     let date = new Date(day);
     date.setHours(9);
+    console.log("init: ", date);
+
     for (let index = 0; index < 18; index++) {
+      console.log("canBook?", date);
+
       const canBook = await this.canBook({ time: date, notAvailableSlots });
       if (canBook) {
         generated.push(
